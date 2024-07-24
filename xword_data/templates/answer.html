@@ -1,20 +1,29 @@
-{% extends "base.html" %}
-
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Answer View</title>
+</head>
 <body>
-    <h1>Congratulations!</h1>
-    <p>You guessed correctly: {{ clue.entry.entry_text }}</p>
+    <h1>Answer</h1>
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+    <p>{{ clue.clue_text }}: {{ clue.entry.entry_text }}</p>
+    <h2>Related Clues</h2>
     <table>
         <tr>
-            <th>Entry</th>
             <th>Count</th>
+            <th>Entry</th>
         </tr>
-        {% for clue in related_clues %}
-            <tr>
-                <td>{{ clue.entry.entry_text }}</td>
-                <td>{{ related_clues.count }}</td>
-            </tr>
+        {% for entry, count in related_clues.items %}
+        <tr>
+            <td>{{ count }}</td>
+            <td>{{ entry }}</td>
+        </tr>
         {% endfor %}
     </table>
+    {% if related_clues|length == 1 %}
+        <p>This is the only appearance of this clue.</p>
+    {% endif %}
 </body>
-{% endblock %}
+</html>

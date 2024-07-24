@@ -1,6 +1,4 @@
 from django.db import models
-# Create your models here.
-
 
 class Puzzle(models.Model):
     title = models.CharField(max_length=255, blank=True)
@@ -9,7 +7,7 @@ class Puzzle(models.Model):
     publisher = models.CharField(max_length=12)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} ({self.publisher}, {self.date})"
 
 
 class Entry(models.Model):
@@ -26,4 +24,4 @@ class Clue(models.Model):
     theme = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.clue_text
+        return f"{self.clue_text} ({self.entry.entry_text})"

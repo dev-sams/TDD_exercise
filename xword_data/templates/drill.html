@@ -1,16 +1,24 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <h1>Guess the Entry</h1>
-    <p>{{ clue.clue_text }}</p>
-    <p>Length: {{ clue.entry.entry_text | length }}</p>
-    <p>Puzzle: {{ clue.puzzle.title }} ({{ clue.puzzle.date }})</p>
-
-    <form method="POST" action="{% url 'xword-drill' %}">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clue Drill</title>
+</head>
+<body>
+    <h1>Clue Drill</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+    <form method="post">
         {% csrf_token %}
+        <p>{{ clue.clue_text }}</p>
         <input type="hidden" name="clue_id" value="{{ clue.id }}">
-        <input type="text" name="guess" required>
+        <label for="answer">Your Answer:</label>
+        <input type="text" name="answer" id="answer">
         <button type="submit">Submit</button>
     </form>
-
-{% endblock %}
+    <a href="{% url 'xword-answer' clue_id %}">Get Answer</a>
+</body>
+</html>
