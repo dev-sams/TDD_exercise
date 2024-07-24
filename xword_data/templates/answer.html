@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+    <h1>Congratulations!</h1>
+    <p>You guessed correctly: {{ clue.entry.entry_text }}</p>
+    <table>
+        <tr>
+            <th>Entry</th>
+            <th>Count</th>
+        </tr>
+        {% for clue in related_clues %}
+            <tr>
+                <td>{{ clue.entry.entry_text }}</td>
+                <td>{{ related_clues.count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+{% endblock %}
